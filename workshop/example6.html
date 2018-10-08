@@ -1,0 +1,20 @@
+<script>
+class MyCustomElement extends HTMLElement {
+    
+    constructor(){
+        super();
+        let shadowRoot = this.attachShadow({mode: 'open'});
+
+        let img = document.createElement('img');
+        img.width = 200;
+        img.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Close_up_of_a_black_domestic_cat.jpg/1024px-Close_up_of_a_black_domestic_cat.jpg';
+        
+        shadowRoot.appendChild(img);
+    }
+}
+window.customElements.define('my-component', MyCustomElement);
+</script>
+
+<my-component></my-component>
+<my-component></my-component>
+<my-component></my-component>
