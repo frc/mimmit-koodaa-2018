@@ -1,0 +1,19 @@
+<section>
+    <h1>Hello world!</h1>
+    <p>The quick brown fox jumps over the lazy dog</p>
+</section>
+
+<style>
+    p {
+        color: blue;
+    }
+</style>
+
+<script>
+    document.querySelector('p').style.color = 'red';
+
+    let img = document.createElement('img');
+    img.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Close_up_of_a_black_domestic_cat.jpg/1024px-Close_up_of_a_black_domestic_cat.jpg';
+    
+    document.querySelector('section').appendChild(img);
+</script>
