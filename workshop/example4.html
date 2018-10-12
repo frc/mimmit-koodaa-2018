@@ -10,10 +10,14 @@
 </style>
 
 <script>
-
+    let p = document.createElement('p');
+    p.textContent = 'Tiger';
+    
     let img = document.createElement('img');
     img.width = 200;
     img.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Close_up_of_a_black_domestic_cat.jpg/1024px-Close_up_of_a_black_domestic_cat.jpg';
     
-    document.querySelector('section').appendChild(img);
+    let section = document.querySelector('section');
+    section.appendChild(p);
+    section.appendChild(img);
 </script>

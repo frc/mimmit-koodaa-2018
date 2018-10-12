@@ -1,16 +1,30 @@
-<script>
-class MyCustomElement extends HTMLElement {
-    
-    constructor(){
-        super();
-        let shadowRoot = this.attachShadow({mode: 'open'});
+<section>
+    <h1>Hello world!</h1>
+    <p>The quick brown fox jumps over the lazy dog</p>
+</section>
 
+<style>
+    p {
+        color: blue;
+    }
+</style>
+
+<script>
+
+    function addCat(catName, element){
+        let p = document.createElement('p');
+        p.textContent = catName;
+    
         let img = document.createElement('img');
         img.width = 200;
         img.src = 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Close_up_of_a_black_domestic_cat.jpg/1024px-Close_up_of_a_black_domestic_cat.jpg';
-        
-        shadowRoot.appendChild(img);
+    
+        section.appendChild(p);
+        section.appendChild(img);
     }
-}
-window.customElements.define('my-component', MyCustomElement);
+
+    let section = document.querySelector('section');
+    addCat('Tiger', section);
+    addCat('Smokey', section);
+    
 </script>
