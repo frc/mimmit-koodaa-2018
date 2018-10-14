@@ -1,0 +1,26 @@
+<template id="my-airport-search-template">
+
+    <input id="search" list="airports"/>
+    <datalist id="airports">
+        <option>Suomi, Helsinki Vantaa</option>
+        <option>Norja, Svolvaer Helle</option>
+    </datalist>
+    
+</template>
+
+<script type="text/javascript">
+    
+let myAirportSearchTemplate = document.currentScript.ownerDocument.querySelector('#my-airport-search-template');
+
+class MyAirportSearchElement extends HTMLElement {
+
+    connectedCallback(){
+        let shadowRoot = this.attachShadow({mode: 'open'});
+        let html = myAirportSearchTemplate.content.cloneNode(true);
+        this.shadowRoot.appendChild(html);
+    }
+}
+window.customElements.define('my-airport-search', MyAirportSearchElement);   
+</script>
+
+<my-airport-search></my-airport-search>
