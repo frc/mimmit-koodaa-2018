@@ -20,7 +20,7 @@ class MyAirportSearchElement extends HTMLElement {
         let searchInput = shadowRoot.querySelector('#search');
         
         const self = this; // we use 'self' to refer to MyAirportSearchElement
-        searchInput.addEventListener('keyup',() => { // #1 <input id="search"/> is now checking keyboard events
+        searchInput.addEventListener('keyup',function() { // #1 <input id="search"/> is now checking keyboard events
             if(searchInput.value.length > 1){ // #2 when user has typed 2 or more characters...
                 self.getData(); // #3...do this
             }
