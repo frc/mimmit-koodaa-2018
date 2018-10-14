@@ -1,0 +1,39 @@
+<template id="my-airport-search-template">
+
+    <h1>Lentokenttä</h1>
+    <input id="search"/>
+    <div id="airports"></div>
+    
+</template>
+<script type="text/javascript">
+    
+let myAirportSearchTemplate = document.currentScript.ownerDocument.querySelector('#my-airport-search-template');
+
+class MyAirportSearchElement extends HTMLElement {
+
+    connectedCallback(){
+
+        let shadowRoot = this.attachShadow({mode: 'open'});
+        let html = myAirportSearchTemplate.content.cloneNode(true);
+        this.shadowRoot.appendChild(html);
+        
+        // setting up the keyboard events for our search input
+        let searchInput = shadowRoot.querySelector('#search');
+        const self = this;
+
+        searchInput.addEventListener('keyup',() => {
+            if(searchInput.value.length > 1){
+                self.getData();
+            }
+        });
+    }
+
+    getData(){
+        console.log('getting data');
+    }
+}
+
+window.customElements.define('my-airport-search', MyAirportSearchElement);
+    
+</script>
+<my-airport-search></my-airport-search>
