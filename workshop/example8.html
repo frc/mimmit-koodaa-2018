@@ -10,14 +10,14 @@
 
 <script type="text/javascript">
     
-let myAirportSearchTemplate = document.currentScript.ownerDocument.querySelector('#my-airport-search-template');
+let myAirportSearchTemplate = document.currentScript.ownerDocument.querySelector('#my-airport-search-template'); // #1 put template into variable
 
 class MyAirportSearchElement extends HTMLElement {
 
     connectedCallback(){
-        let shadowRoot = this.attachShadow({mode: 'open'});
-        let html = myAirportSearchTemplate.content.cloneNode(true);
-        this.shadowRoot.appendChild(html);
+        let shadowRoot = this.attachShadow({mode: 'open'}); // #2 create the shadow root
+        let html = myAirportSearchTemplate.content.cloneNode(true); // #3 clone the template content from the variable
+        this.shadowRoot.appendChild(html); // #4 append the template content to the shadow root
     }
 }
 window.customElements.define('my-airport-search', MyAirportSearchElement);   
