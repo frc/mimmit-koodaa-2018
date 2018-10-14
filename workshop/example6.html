@@ -1,5 +1,5 @@
 <script>
-class MyCustomElement extends HTMLElement {
+class MyCatElement extends HTMLElement {
     
     connectedCallback(){
         let shadowRoot = this.attachShadow({mode: 'open'});
@@ -17,5 +17,5 @@ class MyCustomElement extends HTMLElement {
         shadowRoot.appendChild(img);
     }
 }
-window.customElements.define('my-cat', MyCustomElement);
+window.customElements.define('my-cat', MyCatElement);
 </script>
