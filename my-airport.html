@@ -17,8 +17,7 @@ let myAirportTemplate = document.currentScript.ownerDocument.querySelector('#my-
 
 class MyAirportElement extends HTMLElement {
     
-    constructor(){
-        super();
+    connectedCallback(){
         let shadowRoot = this.attachShadow({mode: 'open'});
         let html = myAirportTemplate.content.cloneNode(true);
         this.shadowRoot.appendChild(html);
