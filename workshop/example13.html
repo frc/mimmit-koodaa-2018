@@ -1,0 +1,41 @@
+<template id="my-airport-template">
+        <style>
+            div {
+                cursor: pointer;
+            }
+            div:hover {
+                background-color: midnightblue;
+                color: white;
+            }
+        </style>
+        <div><img id="flag-icon" src=""><span id="name"></span> (<span id="country"></span>)</div>
+    </template><!-- [flag] Airport Name (Country) -->
+    
+<script>
+    
+let myAirportTemplate = document.currentScript.ownerDocument.querySelector('#my-airport-template');
+
+class MyAirportElement extends HTMLElement {
+    
+    connectedCallback(){
+        let shadowRoot = this.attachShadow({mode: 'open'});
+        let html = myAirportTemplate.content.cloneNode(true);
+        this.shadowRoot.appendChild(html);
+    }
+    setData(data){ // #1 we create a method to set the data for our component
+        this._data = data;
+        this.renderData(data); // #2 when we set the data, we want to update the HTML content
+    }
+    renderData(data){ // #3 just changing some HTML element values
+        this.shadowRoot.querySelector('#name').textContent = data.title;
+        this.shadowRoot.querySelector('#country').textContent = data.country;
+        this.shadowRoot.querySelector('#flag-icon').src = 'https://www.countryflags.io/'+data.countryCode+'/flat/24.png' // #4 use a public country flag API
+    }
+
+    getData(){ // #5 we might want to also get the data for the element
+        return this._data;
+    }
+}
+window.customElements.define('my-airport', MyAirportElement);
+    
+</script>

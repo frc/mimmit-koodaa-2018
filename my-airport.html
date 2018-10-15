@@ -22,9 +22,11 @@ class MyAirportElement extends HTMLElement {
         let html = myAirportTemplate.content.cloneNode(true);
         this.shadowRoot.appendChild(html);
     }
-    
     setData(data){
         this._data = data;
+        this.renderData(data);
+    }
+    renderData(data){
         this.shadowRoot.querySelector('#name').textContent = data.title;
         this.shadowRoot.querySelector('#country').textContent = data.country;
         this.shadowRoot.querySelector('#flag-icon').src = 'https://www.countryflags.io/'+data.countryCode+'/flat/24.png'
