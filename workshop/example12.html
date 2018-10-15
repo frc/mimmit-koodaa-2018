@@ -33,6 +33,7 @@ class MyAirportSearchElement extends HTMLElement {
 
         searchInput.addEventListener('keyup',() => {
             if(searchInput.value.length > 1){
+                self.removeData(); // ##1 we want to remove the previous airports when we get new data
                 self.getData();
                 self.showAirports();
             }
@@ -44,11 +45,38 @@ class MyAirportSearchElement extends HTMLElement {
     }
 
     getData() {
-        fetch('https://frc.github.io/mimmit-koodaa-2018/data.json') // #1 fetch a URL...
-        .then(response => response.json()) // #2 ...when URL content has been loaded, then convert the response to JSON
-        .then(json => { // #3 ...then we get the data as JSON
-            console.log(json); // #4 check that everything works and we get the correct data
+        fetch('https://frc.github.io/mimmit-koodaa-2018/data.json')
+        .then(response => response.json())
+        .then(json => {
+            let data = json.items; // #1 we can access the JSON data with JavaScript
+            data.map(item => { // #2 we use 'map' on the data items, map performs some action for each item
+                this.renderData(item); // #3 we pass the item to our own renderData function
+            });
         });
+    }
+
+    renderData(data) {
+        let airport = document.createElement('my-airport'); // #4 we create our own 'my-airport' HTML element 
+        airport.textContent = data.title; // #5 we set the textContent to the 'title' from our data
+
+        const self = this;
+        airport.addEventListener("mousedown", () => { // #6 we want to know when user clicks on an airport...
+            self.selectAirport(airport); // #7 ...and do something with the selected airport
+            self.hideAirports();
+        });
+
+        this.shadowRoot.querySelector('#airports').appendChild(airport); // #8 finally we add the airport to the dropdown
+    }
+
+    removeData(element){ // ##2 'removeData' is a simple loop to remove all child elements from the dropdown
+        let airports = this.shadowRoot.querySelector('#airports');
+        while (airports.firstChild) {
+            airports.removeChild(airports.firstChild);
+        }
+    }
+
+    selectAirport(airport){
+        console.log(airport);
     }
 
     showAirports(){
