@@ -48,10 +48,10 @@ class MyAirportSearchElement extends HTMLElement {
     }
 
     getData() {
-        fetch('/data.json')
-        .then(response => response.json())
-        .then(json => {
-            console.log(json);
+        fetch('https://frc.github.io/mimmit-koodaa-2018/data.json') // #1 fetch a URL...
+        .then(response => response.json()) // #2 ...when URL content has been loaded, then convert the response to JSON
+        .then(json => { // #3 ...then we get the data as JSON
+            console.log(json); // #4 check that everything works and we get the correct data
         });
     }
 
