@@ -1,0 +1,100 @@
+<link rel="import" href="my-airport.html"><!-- import the my-airport component, so we can use it -->
+<template id="my-airport-search-template">
+
+    <style>
+        #airports {
+            display: none;
+            position:fixed;
+            background-color:white;
+            overflow-y: auto;
+            max-height: 50%; 
+        }
+
+        my-airport{
+            display: block;
+        }
+    </style>
+
+    <h1>Lentokenttä</h1>
+    <input id="search"/>
+    <div id="airports"></div>
+    <span id="selected-airport"></span>
+    
+</template>
+<script type="text/javascript">
+    
+let myAirportSearchTemplate = document.currentScript.ownerDocument.querySelector('#my-airport-search-template');
+
+class MyAirportSearchElement extends HTMLElement {
+
+    connectedCallback(){
+
+        let shadowRoot = this.attachShadow({mode: 'open'});
+        let html = myAirportSearchTemplate.content.cloneNode(true);
+        this.shadowRoot.appendChild(html);
+
+        let searchInput = shadowRoot.querySelector('#search');
+        const self = this;
+
+        searchInput.addEventListener('keyup',() => {
+            if(searchInput.value.length > 1){
+                self.removeData();
+                self.getData();
+            }
+        });
+
+        searchInput.addEventListener('blur',() =>{
+            self.hideAirports();
+        });
+    }
+
+    getData() {
+        fetch('https://frc.github.io/mimmit-koodaa-2018/data.json')
+        .then(response => response.json())
+        .then(json => {
+            let data = json.items;
+            data.map(item => {
+                this.renderData(item)
+            });
+        });
+        this.showAirports();
+    }
+
+    renderData(data) {
+        let airport = document.createElement('my-airport');
+
+        const self = this;
+        airport.addEventListener("mousedown", () => {
+            self.selectAirport(airport);
+            self.hideAirports();
+        });
+
+        this.shadowRoot.querySelector('#airports').appendChild(airport);
+        airport.setData(data);
+    }
+
+    removeData(element){
+        let airports = this.shadowRoot.querySelector('#airports');
+        while (airports.firstChild) {
+            airports.removeChild(airports.firstChild);
+        }
+    }
+
+    selectAirport(airport){
+        let data = airport.getData(); // #1 get data for the selected airport
+        this.shadowRoot.querySelector('#search').value = data.title; // #2 set search bar value to the selected airport
+    }
+
+    showAirports(){
+        this.shadowRoot.querySelector('#airports').style.display = 'block';   
+    }
+
+    hideAirports(){
+        this.shadowRoot.querySelector('#airports').style.display = 'none';  
+    }
+}
+
+window.customElements.define('my-airport-search', MyAirportSearchElement);
+    
+</script>
+<my-airport-search></my-airport-search>
