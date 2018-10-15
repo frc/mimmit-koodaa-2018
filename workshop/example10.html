@@ -1,0 +1,64 @@
+<link rel="import" href="my-airport.html">
+<template id="my-airport-search-template">
+
+    <style>
+        #airports {
+            display: none;
+            position:fixed;
+            background-color:white;
+            overflow-y: auto;
+            max-height: 50%;
+        }
+    </style>
+
+    <h1>Lentokenttä</h1>
+    <input id="search"/>
+    <div id="airports">
+        <p>Suomi, Helsinki Vantaa</p>
+        <p>Norja, Svolvaer Helle</p>
+    </div>
+    
+</template> 
+<script type="text/javascript">
+    
+let myAirportSearchTemplate = document.currentScript.ownerDocument.querySelector('#my-airport-search-template');
+
+class MyAirportSearchElement extends HTMLElement {
+
+    connectedCallback(){
+
+        let shadowRoot = this.attachShadow({mode: 'open'});
+        let html = myAirportSearchTemplate.content.cloneNode(true);
+        this.shadowRoot.appendChild(html);
+
+        let searchInput = shadowRoot.querySelector('#search');
+        const self = this;
+
+        searchInput.addEventListener('keyup',() => {
+            if(searchInput.value.length > 1){
+                self.getData();
+            }
+        });
+
+        searchInput.addEventListener('blur',() =>{
+            self.hideAirports();
+        });
+    }
+
+    getData() {
+        this.showAirports();
+    }
+
+    showAirports(){
+        this.shadowRoot.querySelector('#airports').style.display = 'block';   
+    }
+
+    hideAirports(){
+        this.shadowRoot.querySelector('#airports').style.display = 'none';  
+    }
+}
+
+window.customElements.define('my-airport-search', MyAirportSearchElement);
+    
+</script>
+<my-airport-search></my-airport-search>
