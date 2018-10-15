@@ -1,5 +1,5 @@
 <template id="my-airport-search-template">
-
+    
     <style>
         #airports {
             display: none;
@@ -8,14 +8,14 @@
             overflow-y: auto;
             max-height: 50%;
         }
-    </style>
+    </style> <!-- styles for the airports dropdown -->
 
     <h1>Lentokenttä</h1>
     <input id="search"/>
     <div id="airports">
         <p>Suomi, Helsinki Vantaa</p>
         <p>Norja, Svolvaer Helle</p>
-    </div>
+    </div> <!-- add some test content for the dropdown -->
     
 </template> 
 <script type="text/javascript">
@@ -33,27 +33,28 @@ class MyAirportSearchElement extends HTMLElement {
         let searchInput = shadowRoot.querySelector('#search');
         const self = this;
 
-        searchInput.addEventListener('keyup',() => {
-            if(searchInput.value.length > 1){
-                self.getData();
+        searchInput.addEventListener('keyup',() => { 
+            if(searchInput.value.length > 1){ // #1 when user has typed 2 or more characters...
+                self.getData(); // #2 ...do this
+                self.showAirports(); // #3 ...and this
             }
         });
 
-        searchInput.addEventListener('blur',() =>{
-            self.hideAirports();
+        searchInput.addEventListener('blur',() =>{ // ##1 when search bar loses focus...
+            self.hideAirports(); // ##2 ...do this
         });
     }
 
     getData() {
-        this.showAirports();
+
     }
 
     showAirports(){
-        this.shadowRoot.querySelector('#airports').style.display = 'block';   
+        this.shadowRoot.querySelector('#airports').style.display = 'block'; // ##4 show the list of airports
     }
 
     hideAirports(){
-        this.shadowRoot.querySelector('#airports').style.display = 'none';  
+        this.shadowRoot.querySelector('#airports').style.display = 'none'; // ##3 hide the list of airports
     }
 }
 
