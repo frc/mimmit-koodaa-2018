@@ -53,7 +53,7 @@ class MyAirportSearchElement extends HTMLElement {
     }
 
     getData() {
-        fetch('/data.json')
+        fetch('https://frc.github.io/mimmit-koodaa-2018/data.json')
         .then(response => response.json())
         .then(json => {
             let data = json.items;
