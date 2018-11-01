@@ -1,10 +1,25 @@
 <template id="my-airport-search-template">
+    <div class="airport-container">
+        <h1 class="airport-heading">Lentokenttä</h1>
+        <input id="search" />
+        <div id="airports"></div>
+    </div>
 
-    <h1>Lentokenttä</h1>
-    <input id="search"/>
-    <div id="airports"></div>
-    
+
 </template>
+
+<style>
+    .airport-container {
+        display: flex;
+        justify-content: center;
+    }
+
+    .airport-heading {
+        color: darkblue;
+        text-transform: uppercase;
+    }
+</style>
+
 <script type="text/javascript">
     
 let myAirportSearchTemplate = document.currentScript.ownerDocument.querySelector('#my-airport-search-template');
